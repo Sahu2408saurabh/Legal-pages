@@ -1,0 +1,163 @@
+/* =====================================
+   TERMS & CONDITIONS – FINAL CSS
+===================================== */
+
+/* ---------- Breadcrumb / Hero ---------- */
+
+.breadcrumbarea {
+    position: relative;
+    padding: 120px 0 90px;
+    background: #f9fafc;
+    overflow: hidden;
+}
+
+.breadcrumb__content__wraper {
+    text-align: center;
+}
+
+.breadcrumb__title .heading {
+    font-size: 40px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.breadcrumb__inner ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+}
+
+.breadcrumb__inner ul li {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.breadcrumb__inner ul li a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.breadcrumb__inner ul li::after {
+    content: "/";
+    margin-left: 6px;
+    color: #9ca3af;
+}
+
+.breadcrumb__inner ul li:last-child::after {
+    display: none;
+}
+
+/* ---------- Floating Icons ---------- */
+
+.shape__icon__2 {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* Common icon style */
+.shape__icon__img {
+    position: absolute;
+    width: 90px;                 /* Big icons */
+    height: auto;
+    opacity: 1;
+    animation: floatIcon 6s ease-in-out infinite;
+}
+
+/* LEFT side icons */
+.shape__icon__img__1 {
+    top: 22%;
+    left: 4%;
+}
+
+.shape__icon__img__2 {
+    top: 58%;
+    left: 4%;
+    animation-delay: 1.5s;
+}
+
+/* RIGHT side icons */
+.shape__icon__img__3 {
+    top: 30%;
+    right: 4%;
+    animation-delay: 0.8s;
+}
+
+.shape__icon__img__4 {
+    top: 66%;
+    right: 4%;
+    animation-delay: 2.2s;
+}
+
+/* Floating animation */
+@keyframes floatIcon {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-14px); }
+    100% { transform: translateY(0); }
+}
+
+/* ---------- Content (Simple Look) ---------- */
+
+section.pt-4 {
+    padding: 50px 0;
+    background: #ffffff;
+}
+
+.content {
+    max-width: 1150px;
+    margin: auto;
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+}
+
+.content h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 28px;
+    margin-bottom: 8px;
+}
+
+.content p {
+    margin-bottom: 12px;
+}
+
+.content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.content ul li {
+    margin-bottom: 8px;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+    .breadcrumb__title .heading {
+        font-size: 28px;
+    }
+
+    .shape__icon__img {
+        width: 55px;
+    }
+
+    /* Mobile par icons thode andar */
+    .shape__icon__img__1,
+    .shape__icon__img__2 {
+        left: 2%;
+    }
+
+    .shape__icon__img__3,
+    .shape__icon__img__4 {
+        right: 2%;
+    }
+
+    .content {
+        padding: 0 15px;
+    }
+}
