@@ -1,46 +1,55 @@
 import InputField from "./InputField";
 import PhoneInput from "./PhoneInput";
 
-const StepOne = ({ formData, setFormData, onNext }) => {
+const StepOne = ({ formData, setFormData, onNext, loading }) => {
   return (
     <>
+      {/* Parent Name */}
       <InputField
         label="Parent Name"
-        placeholder="Parent Name"
+        placeholder="Enter parent name"
         value={formData.parentName}
         onChange={(e) =>
           setFormData({ ...formData, parentName: e.target.value })
         }
       />
 
+      {/* Child Name */}
       <InputField
         label="Child's Name"
-        placeholder="Child Name"
+        placeholder="Enter child's name"
         value={formData.childName}
         onChange={(e) =>
           setFormData({ ...formData, childName: e.target.value })
         }
       />
 
+      {/* Email */}
       <InputField
         label="Email"
         type="email"
-        placeholder="Your Email"
+        placeholder="Enter email address"
         value={formData.email}
         onChange={(e) =>
           setFormData({ ...formData, email: e.target.value })
         }
       />
 
+      {/* Phone Number with Country Code */}
       <PhoneInput
-        value={formData.phone}
+        value={formData.phoneNumber}
         onChange={(e) =>
-          setFormData({ ...formData, phone: e.target.value })
+          setFormData({ ...formData, phoneNumber: e.target.value })
         }
       />
 
-      <button className="next-btn" onClick={onNext}>
-        Book Free Demo!
+      {/* Next Button */}
+      <button
+        className="next-btn"
+        onClick={onNext}
+        disabled={loading}
+      >
+        {loading ? "Please wait..." : "Next"}
       </button>
     </>
   );

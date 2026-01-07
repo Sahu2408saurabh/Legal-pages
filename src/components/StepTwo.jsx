@@ -3,7 +3,7 @@ import { useState } from "react";
 const StepTwo = ({ onBack, onSubmit }) => {
   const [stepTwoData, setStepTwoData] = useState({
     grade: "",
-    course: "",
+    courseName: "",
     date: "",
     time: "",
   });
@@ -17,14 +17,14 @@ const StepTwo = ({ onBack, onSubmit }) => {
   };
 
   const handleConfirm = () => {
-    const { grade, course, date, time } = stepTwoData;
+    const { grade, courseName, date, time } = stepTwoData;
 
-    if (!grade || !course || !date || !time) {
+    if (!grade || !courseName || !date || !time) {
       alert("Please fill all fields before confirming");
       return;
     }
 
-    // ✅ all good → redirect handled in parent
+    
     onSubmit();
   };
 
@@ -55,12 +55,12 @@ const StepTwo = ({ onBack, onSubmit }) => {
         </select>
       </div>
 
-      {/* COURSE SELECTION */}
+      
       <div className="field">
         <label>Course Selection</label>
         <select
-          name="course"
-          value={stepTwoData.course}
+          name="courseName"
+          value={stepTwoData.courseName}
           onChange={handleChange}
         >
           <option value="">Select Course</option>
@@ -81,7 +81,7 @@ const StepTwo = ({ onBack, onSubmit }) => {
         </select>
       </div>
 
-      {/* DATE */}
+   
       <div className="field">
         <label>Date</label>
         <input

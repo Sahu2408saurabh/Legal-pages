@@ -2,24 +2,27 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StepOne from "../components/StepOne";
 import StepTwo from "../components/StepTwo";
+import axios from "axios";
 import "../styles/bookDemo.css";
 
 const BookDemoForm = () => {
   const [step, setStep] = useState(1);
-  const navigate = useNavigate(); // ✅ navigation hook
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     parentName: "",
     childName: "",
     email: "",
-    phone: "",
+    phoneNumber: "",
   });
 
-  // STEP 1 VALIDATION
-  const handleNextStep = () => {
-    const { parentName, childName, email, phone } = formData;
+ 
+  const handleStepOneSubmit = async () => {
+    const { parentName, childName, email, phoneNumber } = formData;
 
-    if (!parentName || !childName || !email || !phone) {
+    
+    if (!parentName || !childName || !email || !phoneNumber) {
       alert("Please fill all required fields");
       return;
     }
@@ -30,19 +33,45 @@ const BookDemoForm = () => {
       return;
     }
 
-    if (phone.length < 7) {
+    if (phoneNumber.length < 7) {
       alert("Please enter a valid phone number");
       return;
     }
 
-    setStep(2);
+    try {
+      setLoading(true);
+
+      await axios.post(
+        "https://api.restful-api.dev/objects",
+        formData
+      );
+
+      setStep(2); 
+    } catch (error) {
+      console.error("Step 1 API Error:", error);
+      alert("Unable to proceed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // ✅ FINAL SUBMIT → THANK YOU PAGE
-  const handleFinalSubmit = () => {
-    // 👉 Yahan API call bhi laga sakte ho
+  
+  const handleFinalSubmit = async () => {
+    try {
+      setLoading(true);
 
-    navigate("/thank-you"); // 🔥 redirect
+      await axios.post(
+        "https://api.restful-api.dev/objects",
+        formData
+      );
+
+      navigate("/thank-you");
+    } catch (error) {
+      console.error("Final Submit Error:", error);
+      alert("Unable to confirm demo");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,14 +81,16 @@ const BookDemoForm = () => {
           <StepOne
             formData={formData}
             setFormData={setFormData}
-            onNext={handleNextStep}
+            onNext={handleStepOneSubmit}
+            loading={loading}
           />
         )}
 
         {step === 2 && (
           <StepTwo
             onBack={() => setStep(1)}
-            onSubmit={handleFinalSubmit} // 👈 pass submit
+            onSubmit={handleFinalSubmit}
+            loading={loading}
           />
         )}
       </div>
