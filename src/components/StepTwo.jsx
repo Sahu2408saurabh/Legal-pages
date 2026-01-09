@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { generateTimeSlots } from "../utils/timeSlots";
 
 const StepTwo = ({ onBack, onSubmit }) => {
   const [stepTwoData, setStepTwoData] = useState({
@@ -24,13 +25,13 @@ const StepTwo = ({ onBack, onSubmit }) => {
       return;
     }
 
-    
-    onSubmit();
+    // ✅ StepTwo data parent ko bhejo
+    onSubmit(stepTwoData);
   };
 
   return (
     <>
-      {/* CHILD GRADE */}
+      {/* Grade */}
       <div className="field">
         <label>Child's Grade</label>
         <select
@@ -55,7 +56,7 @@ const StepTwo = ({ onBack, onSubmit }) => {
         </select>
       </div>
 
-      
+      {/* Course */}
       <div className="field">
         <label>Course Selection</label>
         <select
@@ -81,7 +82,7 @@ const StepTwo = ({ onBack, onSubmit }) => {
         </select>
       </div>
 
-   
+      {/* Date */}
       <div className="field">
         <label>Date</label>
         <input
@@ -92,18 +93,24 @@ const StepTwo = ({ onBack, onSubmit }) => {
         />
       </div>
 
-      {/* TIME */}
+      {/* ✅ TIME DROPDOWN (USING YOUR UTILITY FILE) */}
       <div className="field">
         <label>Time</label>
-        <input
-          type="time"
+        <select
           name="time"
           value={stepTwoData.time}
           onChange={handleChange}
-        />
+        >
+          <option value="">Select Time</option>
+          {generateTimeSlots().map((time, index) => (
+            <option key={index} value={time}>
+              {time}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* ACTION BUTTONS */}
+      {/* Actions */}
       <div className="step-actions">
         <button className="back-btn" onClick={onBack}>
           Back

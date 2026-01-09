@@ -1,10 +1,28 @@
+import { useState } from "react";
 import InputField from "./InputField";
-import PhoneInput from "./PhoneInput";
+import PhoneField from "./PhoneField";
+import CloudflareCaptcha from "./CloudflareCaptcha";
 
 const StepOne = ({ formData, setFormData, onNext, loading }) => {
+  const [captchaToken, setCaptchaToken] = useState(null);
+
+  const handleNext = () => {
+    if (!captchaToken) {
+      alert("Please verify captcha");
+      return;
+    }
+
+    // captcha token form data me add
+    setFormData({
+      ...formData,
+      captchaToken,
+    });
+
+    onNext();
+  };
+
   return (
     <>
-      {/* Parent Name */}
       <InputField
         label="Parent Name"
         placeholder="Enter parent name"
@@ -14,7 +32,6 @@ const StepOne = ({ formData, setFormData, onNext, loading }) => {
         }
       />
 
-      {/* Child Name */}
       <InputField
         label="Child's Name"
         placeholder="Enter child's name"
@@ -24,7 +41,6 @@ const StepOne = ({ formData, setFormData, onNext, loading }) => {
         }
       />
 
-      {/* Email */}
       <InputField
         label="Email"
         type="email"
@@ -35,18 +51,23 @@ const StepOne = ({ formData, setFormData, onNext, loading }) => {
         }
       />
 
-      {/* Phone Number with Country Code */}
-      <PhoneInput
-        value={formData.phoneNumber}
-        onChange={(e) =>
+      <PhoneField
+        countryCode={formData.countryCode}
+        phoneNumber={formData.phoneNumber}
+        onCountryChange={(e) =>
+          setFormData({ ...formData, countryCode: e.target.value })
+        }
+        onPhoneChange={(e) =>
           setFormData({ ...formData, phoneNumber: e.target.value })
         }
       />
 
-      {/* Next Button */}
+      {/* 🔐 Cloudflare CAPTCHA */}
+      <CloudflareCaptcha onVerify={setCaptchaToken} />
+
       <button
         className="next-btn"
-        onClick={onNext}
+        onClick={handleNext}
         disabled={loading}
       >
         {loading ? "Please wait..." : "Next"}

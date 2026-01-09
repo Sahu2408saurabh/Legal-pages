@@ -10,43 +10,34 @@ const BookDemoForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  
   const [formData, setFormData] = useState({
     parentName: "",
     childName: "",
     email: "",
+    countryCode: "",
     phoneNumber: "",
   });
 
- 
+  
+  const [stepTwoData, setStepTwoData] = useState({
+    grade: "",
+    courseName: "",
+    date: "",
+    time: "",
+  });
+
+
   const handleStepOneSubmit = async () => {
-    const { parentName, childName, email, phoneNumber } = formData;
-
-    
-    if (!parentName || !childName || !email || !phoneNumber) {
-      alert("Please fill all required fields");
-      return;
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      alert("Please enter a valid email");
-      return;
-    }
-
-    if (phoneNumber.length < 7) {
-      alert("Please enter a valid phone number");
-      return;
-    }
-
     try {
       setLoading(true);
 
-      await axios.post(
-        "https://api.restful-api.dev/objects",
-        formData
-      );
+     
+      console.log("STEP 1 PAYLOAD ", formData);
 
-      setStep(2); 
+      await axios.post("https://api.restful-api.dev/objects", formData);
+
+      setStep(2);
     } catch (error) {
       console.error("Step 1 API Error:", error);
       alert("Unable to proceed. Please try again.");
@@ -56,15 +47,26 @@ const BookDemoForm = () => {
   };
 
   
-  const handleFinalSubmit = async () => {
+  const handleFinalSubmit = async (stepTwoValues) => {
     try {
       setLoading(true);
 
+      setStepTwoData(stepTwoValues);
+
+      
+      const finalPayload = {
+        ...formData,
+        ...stepTwoValues,
+      };
+
+      console.log("FINAL PAYLOAD ", finalPayload);
+
       await axios.post(
         "https://api.restful-api.dev/objects",
-        formData
+        finalPayload
       );
 
+      
       navigate("/thank-you");
     } catch (error) {
       console.error("Final Submit Error:", error);
