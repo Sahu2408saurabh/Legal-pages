@@ -1,22 +1,22 @@
-import { useState } from "react";
+// import { useState } from "react";
 import InputField from "./InputField";
 import PhoneField from "./PhoneField";
 import CloudflareCaptcha from "./CloudflareCaptcha";
 
 const StepOne = ({ formData, setFormData, onNext, loading }) => {
-  const [captchaToken, setCaptchaToken] = useState(null);
+  // const [captchaToken, setCaptchaToken] = useState(null);
 
   const handleNext = () => {
-    if (!captchaToken) {
-      alert("Please verify captcha");
-      return;
-    }
+    // if (!captchaToken) {
+    //   alert("Please verify captcha");
+    //   return;
+    // }
 
-    // captcha token form data me add
-    setFormData({
-      ...formData,
-      captchaToken,
-    });
+    // // captcha token form data me add
+    // setFormData({
+    //   ...formData,
+    //   captchaToken,
+    // });
 
     onNext();
   };
@@ -63,7 +63,7 @@ const StepOne = ({ formData, setFormData, onNext, loading }) => {
       />
 
       {/* 🔐 Cloudflare CAPTCHA */}
-      <CloudflareCaptcha onVerify={setCaptchaToken} />
+      {/* <CloudflareCaptcha onVerify={setCaptchaToken} /> */}
 
       <button
         className="next-btn"

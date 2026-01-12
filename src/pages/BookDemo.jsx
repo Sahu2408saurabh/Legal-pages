@@ -20,12 +20,12 @@ const BookDemoForm = () => {
   });
 
   
-  const [stepTwoData, setStepTwoData] = useState({
-    grade: "",
-    courseName: "",
-    date: "",
-    time: "",
-  });
+  // const [stepTwoData, setStepTwoData] = useState({
+  //   grade: "",
+  //   courseName: "",
+  //   date: "",
+  //   time: "",
+  // });
 
 
   const handleStepOneSubmit = async () => {
@@ -33,7 +33,7 @@ const BookDemoForm = () => {
       setLoading(true);
 
      
-      console.log("STEP 1 PAYLOAD ", formData);
+      // console.log("STEP 1 PAYLOAD ", formData);
 
       await axios.post("https://api.restful-api.dev/objects", formData);
 
@@ -51,7 +51,7 @@ const BookDemoForm = () => {
     try {
       setLoading(true);
 
-      setStepTwoData(stepTwoValues);
+      // setStepTwoData(stepTwoValues);
 
       
       const finalPayload = {
